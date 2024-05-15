@@ -1,0 +1,349 @@
+import java.util.Scanner;
+
+class UserRegistration {
+    private String username;
+    private String password;
+
+    public UserRegistration() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter a username: ");
+        this.username = scanner.nextLine();
+
+        System.out.print("Enter a password: ");
+        this.password = scanner.nextLine();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+} 
+output:
+Enter a username: john_doe
+Enter a password: securePassword123
+Username: john_doe
+Password: securePassword123
+UserRegistration user = new UserRegistration();
+String enteredUsername = user.getUsername();
+String enteredPassword = user.getPassword();
+
+// Authenticate the user's login credentials
+if (isValidUser(enteredUsername, enteredPassword)) {
+    System.out.println("Welcome, " + enteredUsername + "!");
+} else {
+    System.out.println("Invalid username or password.");
+}
+
+// Example authentication method
+private boolean isValidUser(String username, String password) {
+    // Check if the username and password match a stored user account
+    // Return true if the user is authenticated, false otherwise
+} 
+Output:
+Enter a username: john_doe
+Enter a password: securePassword123
+Welcome, john_doe!
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
+class ExpenseEntry {
+    private LocalDate date;
+    private String category;
+    private double amount;
+
+    public ExpenseEntry() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the date (yyyy-mm-dd): ");
+        String dateInput = scanner.nextLine();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.date = LocalDate.parse(dateInput, formatter);
+
+        System.out.print("Enter the category: ");
+        this.category = scanner.nextLine();
+
+        System.out.print("Enter the amount: ");
+        this.amount = scanner.nextDouble();
+    }
+
+    public LocalDate getDate() {
+        return date;
+Output:
+Enter the date (yyyy-mm-dd): 2024-05-15
+Enter the category: Grocery
+Enter the amount: 50.25
+Date: 2024-05-15
+Category: Grocery
+Amount: 50.25
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class ExpenseListing {
+    private List<ExpenseEntry> expenses;
+
+    public ExpenseListing() {
+        expenses = new ArrayList<>();
+
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nEnter a new expense (or type 'done' to finish):");
+            System.out.print("Date (yyyy-mm-dd): ");
+            String dateInput = scanner.nextLine();
+
+            if (dateInput.equalsIgnoreCase("done")) {
+                break;
+            }
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate date = LocalDate.parse(dateInput, formatter);
+
+            System.out.print("Category: ");
+            String category = scanner.nextLine();
+
+            System.out.print("Amount: ");
+            double amount = scanner.nextDouble();
+
+            expenses.add(new ExpenseEntry(date, category, amount));
+        }
+    }
+
+    public void displayExpenses() {
+        System.out.println("\nExpense Listing:");
+        System.out.printf("%-10s %-20s %s%n", "Date", "Category", "Amount");
+
+        for (ExpenseEntry expense : expenses) {
+            System.out.printf("%-10s %-20s %f%n", expense.getDate(), expense.getCategory(), expense.getAmount());
+        }
+    }
+
+    public void sortExpensesByDate() {
+        expenses.sort((e1, e2) -> e1.getDate().compareTo(e2.getDate()));
+    }
+
+    public void filterExpensesByCategory(String category) {
+        expenses.removeIf(expense -> !expense.getCategory().equalsIgnoreCase(category));
+    }
+}
+Output:
+Enter a new expense (or type 'done' to finish):
+Date (yyyy-mm-dd): 2024-05-15
+Category: Grocery
+Amount: 50.25
+
+Enter a new expense (or type 'done' to finish):
+Date (yyyy-mm-dd): 2024-05-16
+Category: Dining
+Amount: 30.50
+
+Enter a new expense (or type 'done' to finish):
+Date (yyyy-mm-dd): 2024-05-17
+Category: Shopping
+Amount: 100.75
+
+Enter a new expense (or type 'done' to finish):
+Date (yyyy-mm-dd): done
+
+Expense Listing:
+Date       Category             Amount
+2024-05-15 Grocery              50.250000
+2024-05-16 Dining               30.500000
+2024-05-17 Shopping             100.750000
+
+Expenses sorted by date:
+Date       Category             Amount
+2024-05-15 Grocery              50.250000
+2024-05-16 Dining               30.500000
+2024-05-17 Shopping             100.750000
+
+Expenses filtered by category 'Grocery':
+Date       Category             Amount
+2024-05-15 Grocery              50.250000
+ExpenseListing expenseListing = new ExpenseListing();
+
+// Add expenses to the expense listing
+
+expenseListing.sortExpensesByDate();
+expenseListing.displayExpenses();
+
+expenseListing.filterExpensesByCategory("Groceries");
+expenseListing.displayExpenses(); 
+Output:
+Expenses sorted by date:
+Expense Listing:
+Date       Category             Amount
+2024-05-15 Grocery              50.25
+2024-05-16 Dining               30.5
+2024-05-17 Shopping             100.75
+
+Expenses filtered by category 'Groceries':
+Expense Listing:
+Date       Category             Amount
+2024-05-15 Grocery              50.25
+User
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+class ExpenseListing {
+    private List<ExpenseEntry> expenses;
+
+    public ExpenseListing() {
+        expenses = new ArrayList<>();
+
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nEnter a new expense (or type 'done' to finish):");
+            System.out.print("Date (yyyy-mm-dd): ");
+            String dateInput = scanner.nextLine();
+
+            if (dateInput.equalsIgnoreCase("done")) {
+                break;
+            }
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate date = LocalDate.parse(dateInput, formatter);
+
+            System.out.print("Category: ");
+            String category = scanner.nextLine();
+
+            System.out.print("Amount: ");
+            double amount = scanner.nextDouble();
+
+            expenses.add(new ExpenseEntry(date, category, amount));
+        }
+    }
+
+    public void displayExpenses() {
+        System.out.println("\nExpense Listing:");
+        System.out.printf("%-10s %-20s %s%n", "Date", "Category", "Amount");
+
+        for (ExpenseEntry expense : expenses) {
+            System.out.printf("%-10s %-20s %f%n", expense.getDate(), expense.getCategory(), expense.getAmount());
+        }
+    }
+
+    public void sortExpensesByDate() {
+        expenses.sort((e1, e2) -> e1.getDate().compareTo(e2.getDate()));
+    }
+
+    public void filterExpensesByCategory(String category) {
+        expenses.removeIf(expense -> !expense.getCategory().equalsIgnoreCase(category));
+    }
+
+    public void displayCategoryTotals() {
+        Map<String, Double> categoryTotals = new HashMap<>();
+
+        for (ExpenseEntry expense : expenses) {
+            String category = expense.getCategory();
+            double amount = expense.getAmount();
+
+            if (!categoryTotals.containsKey(category)) {
+                categoryTotals.put(category, 0.0);
+            }
+
+            categoryTotals.put(category, categoryTotals.get(category) + amount);
+        }
+
+        System.out.println("\nCategory Totals:");
+        System.out.printf("%-20s %s%n", "Category", "Total");
+
+        for (Map.Entry<String, Double> entry : categoryTotals.entrySet()) {
+            System.out.printf("%-20s %f%n", entry.getKey(), entry.getValue());
+        }
+    }
+}
+Output:
+2024-05-15, Grocery, 50.25
+2024-05-16, Dining, 30.50
+2024-05-17, Shopping, 100.75
+2024-05-18, Grocery, 25.50
+Expense Listing:
+Date       Category             Amount
+2024-05-15 Grocery              50.250000
+2024-05-16 Dining               30.500000
+2024-05-17 Shopping             100.750000
+2024-05-18 Grocery              25.500000
+
+Expenses sorted by date:
+Date       Category             Amount
+2024-05-15 Grocery              50.250000
+2024-05-16 Dining               30.500000
+2024-05-17 Shopping             100.750000
+2024-05-18 Grocery              25.500000
+
+Expenses filtered by category 'Grocery':
+Date       Category             Amount
+2024-05-15 Grocery              50.250000
+2024-05-18 Grocery              25.500000
+
+Category Totals:
+Category             Total
+Grocery              75.750000
+ExpenseListing expenseListing = new ExpenseListing();
+
+// Add expenses to the expense listing
+
+expenseListing.displayCategoryTotals(); 
+Output:
+2024-05-15, Grocery, 50.25
+2024-05-16, Dining, 30.50
+2024-05-17, Shopping, 100.75
+2024-05-18, Grocery, 25.50
+Category Totals:
+Category             Total
+Grocery              75.750000
+Dining               30.500000
+Shopping             100.750000
+import java.io.*;
+
+public class ExceptionHandlingExample {
+
+    public static void main(String[] args) {
+        try {
+            testException(-10);
+        } catch (FileNotFoundException e) {
+            System.out.println("FileNotFoundException: " + e.getMessage());
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("IOException: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            System.out.println("Releasing resources");
+        }
+    }
+
+    private static void testException(int i) throws FileNotFoundException, IOException {
+        if (i < 0) {
+            throw new FileNotFoundException("Negative Integer " + i);
+        }
+        InputStream file = new FileInputStream("test.txt");
+        if (i > 5) {
+            throw new IOException("Only supported for index 0 to 10");
+        }
+        file.read();
+        file.close();
+    }
+}
+
+
+output:
+
+
+FileNotFoundException: Negative Integer -10
+java.io.FileNotFoundException: Negative Integer -10
+	at ExceptionHandlingExample.testException(ExceptionHandlingExample.java:21)
+	at ExceptionHandlingExample.main(ExceptionHandlingExample.java:7)
+Releasing resources
